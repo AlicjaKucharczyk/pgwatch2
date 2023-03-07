@@ -42,16 +42,6 @@ bootstrap:
     repository: cybertec/pgwatch2-db-bootstrapper
     tag: latest
 
-timescaledb-single:
-  fullnameOverride: pgwatch2-postgresql
-  
-  postInit:
-    - configMap:
-        name: pgwatch2-initdb
-        optional: false
-  secrets:
-    credentials:
-      PATRONI_pgwatch2_PASSWORD: "pgwatch2"
 postgresql:
   enabled: true
   auth:
@@ -65,6 +55,17 @@ postgresql:
       scriptsConfigMap: pgwatch2-initdb
   secretname: pgwatch2-postgresql-credentials
   secretkey: PATRONI_SUPERUSER_PASSWORD
+
+timescaledb-single:
+  fullnameOverride: pgwatch2-postgresql
+
+  postInit:
+    - configMap:
+        name: pgwatch2-initdb
+        optional: false
+  secrets:
+    credentials:
+      PATRONI_pgwatch2_PASSWORD: &postgrespassword
 
 influxdb:
   enabled: false

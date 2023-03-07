@@ -43,6 +43,8 @@ spec:
           value: {{ .Values.postgresql.password | default "pgwatch2" }}
         - name: PGSSL
           value: {{ .Values.postgresql.ssl | default "True" | quote }}
+        - name: PGSSLMODE
+          value: {{ .Values.postgresql.sslmode | default "require" }}
         - name: BOOTSTRAP_TYPE
           value: {{ .Values.bootstrap.type0 | default "configdb" | quote }}
 
@@ -68,6 +70,8 @@ spec:
               key: {{ .Values.postgresql.secretkey | default "postgres-password" }}
         - name: PGSSL
           value: {{ .Values.postgresql.ssl | default "True" | quote }}
+        - name: PGSSLMODE
+          value: {{ .Values.postgresql.sslmode | default "require" }}
         - name: BOOTSTRAP_TYPE
           value: {{ .Values.bootstrap.type1 | default "metricsdb" | quote }}
         - name: BOOTSTRAP_METRICSDB_SCHEMA_TYPE
@@ -100,6 +104,8 @@ spec:
               key: {{ .Values.postgresql.secretkey | default "postgres-password" }}
         - name: PGSSL
           value: {{ .Values.postgresql.ssl | default "True" | quote }}
+        - name: PGSSLMODE
+          value: {{ .Values.postgresql.sslmode | default "require" }}
         - name: BOOTSTRAP_TYPE
           value: {{ .Values.bootstrap.type | default "configdb" | quote }}
       volumes:
@@ -128,6 +134,8 @@ spec:
               key: {{ .Values.postgresql.secretkey | default "postgres-password" }}
         - name: PW2_PGSSL
           value: {{ .Values.postgresql.ssl | default "True" | quote }}
+        - name: PGSSLMODE
+          value: {{ .Values.postgresql.sslmode | default "require" }}
         {{ if eq .Values.storage "influx" }}
         - name: PW2_IHOST
           value: {{ include "pgwatch2.fullname" . }}-influxdb
